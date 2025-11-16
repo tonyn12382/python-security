@@ -18,6 +18,9 @@ jobs:
           pip install -r requirements.txt
           pip install safety bandit
 
+      - name: Set PYTHONPATH
+        run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)" >> $GITHUB_ENV
+
       - name: Run Tests
         run: pytest tests/
 
@@ -30,5 +33,5 @@ jobs:
       - name: Security Check 2 - Code Security Scan
         run: |
           echo "Scanning code for security issues..."
-          bandit -r src/ -ll
+          bandit -r . -ll
         continue-on-error: true
